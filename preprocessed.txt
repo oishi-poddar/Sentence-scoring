@@ -1,0 +1,8 @@
+['self', 'support', 'unman', 'border', 'system', 'accord', 'embodi', 'present', 'invent', 'util', 'radar', 'internet', 'thing']
+['method', 'estim', 'full', 'profil', 'vertic', 'distribut', 'sound', 'speed', 'field', 'measur', 'equip']
+['substanc', 'invent', 'may', 'use', 'form', 'complet', 'profil', 'vertic', 'distribut', 'sound', 'speed', 'vdss', 'water', 'surfac', 'bottom']
+['essenc', 'make', 'measur', 'hydrophys', 'paramet', 'aquat', 'environ', 'naval', 'equip', 'place', 'surfac', 'ship', 'submarin', 'unman', 'underwat', 'vehicl', 'form', 'fragment', 'curv', 'vertic', 'distribut', 'sound', 'speed', 'doe', 'character', 'sound', 'speed', 'field', 'surfac', 'bottom', 'layer', 'sea']
+['use', 'set', 'probabl', 'curv', 'vdss', 'scale', 'climat', 'region', 'product', 'hydro', 'physic', 'paramet', 'measur', 'current', 'season', 'calcul', 'averag', 'valu', 'sound', 'veloc', 'sea', 'surfac', 'region', 'possibl', 'locat', 'underwat', 'sound', 'channel', 'weight', 'averag', 'valu', 'speed', 'sound', 'standard', 'horizon']
+['analyz', 'minimum', 'maximum', 'depth', 'measur', 'point', 'measur', 'fragment', 'speed', 'sound', 'calcul', 'paramet', 'field', 'possibl', 'locat', 'underwat', 'sound', 'channel', 'finish', 'build', 'measur', 'fragment', 'vdss', 'surfac', 'use', 'speed', 'sound', 'paramet', 'sea', 'surfac', 'bottom', 'use', 'weight', 'averag', 'speed', 'sound', 'standard', 'horizon', 'depth', 'gradient']
+['effect', 'increas', 'accuraci', 'solut', 'practic', 'problem', 'requir', 'presenc', 'complet', 'profil', 'vdss', 'increas', 'reliabl', 'digit', 'model', 'channel', 'distribut', 'acoust', 'energi', 'aquat', 'environ']
+['dwg']
