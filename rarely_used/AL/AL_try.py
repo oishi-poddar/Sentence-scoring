@@ -15,9 +15,9 @@ import numpy as np
 import csv
 import sklearn
 from numpy import genfromtxt
-df = pd.read_csv("dataframe_1.csv")
+df = pd.read_csv("features.csv")
 # df=pd.DataFrame(StandardScale(X=df_not))
-scaler=MinMaxScaler()
+# scaler=MinMaxScaler()
 # df=pd.DataFrame(scaler.fit_transform(df_not.astype(float)))
 # df.columns=df_not.columns
 # df_index=df_not.index
@@ -27,8 +27,8 @@ X = []
 # Iterate over each row
 for rows in df.itertuples():
     # Create list for the current row
-    my_list = [rows.position, rows.special_char, rows.upper_case, rows.numeral, rows.aggregate, rows.length, rows.significance, rows.freq_score,
-               rows.proper_noun, rows.noun, rows.verb, rows.named_entity]
+    my_list = [rows.position, rows.special_char, rows.upper_case, rows.numeral, rows.aggregate, rows.length, rows.freq_score,
+               rows.proper_noun, rows.noun, rows.verb, rows.named_entity, rows.cue_phrases, rows.centrality]
     # append the list to the final list
     X.append(my_list)
 
@@ -39,14 +39,17 @@ X=all[0:1020]
 df = pd.read_csv("sentences_data.csv")[0:1020]
 NANindex=df['Oracle label'].index[df['Oracle label'].apply(np.isnan)]
 X=np.delete(X, NANindex,0)
-df=df.dropna()
+df=df.dropna(subset=['Oracle label'])
+print(df)
+print(len(X))
 y=df[['Oracle label']].to_numpy().ravel().astype(int)
+print(y)
 print("siz",y.size)
 # y = np.asarray([1,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])
 alibox = ToolBox(X=X, y=y, query_type='AllLabels', saving_path='.')
 
 # Split data
-alibox.split_AL(test_ratio=0.2, initial_label_rate=0.1, split_count=2)
+alibox.split_AL(test_ratio=0.2, initial_label_rate=0.1, split_count=3)
 
 # Use the default Logistic Regression classifier
 # model = sklearn.svm.SVC(kernel='sigmoid', probability=True)
@@ -120,25 +123,25 @@ rnd_result = []
 
 _I_have_installed_the_cvxpy = False
 
-for round in range(2):
+for round in range(3):
     train_idx, test_idx, label_ind, unlab_ind = alibox.get_split(round)
 
     # Use pre-defined strategy
     unc = alibox.get_query_strategy(strategy_name="QueryInstanceUncertainty")
     qbc = alibox.get_query_strategy(strategy_name="QueryInstanceQBC")
-    eer = alibox.get_query_strategy(strategy_name="QueryExpectedErrorReduction")
+    # eer = alibox.get_query_strategy(strategy_name="QueryExpectedErrorReduction")
     rnd = alibox.get_query_strategy(strategy_name="QueryInstanceRandom")
     # quire = alibox.get_query_strategy(strategy_name="QueryInstanceQUIRE", train_idx=train_idx)
-    density = alibox.get_query_strategy(strategy_name="QueryInstanceGraphDensity", train_idx=train_idx)
+    # density = alibox.get_query_strategy(strategy_name="QueryInstanceGraphDensity", train_idx=train_idx)
     # lal = alibox.get_query_strategy(strategy_name="QueryInstanceLAL", cls_est=10, train_slt=False)
     # lal.download_data()
     # lal.train_selector_from_file(reg_est=30, reg_depth=5)
     unc_result.append(copy.deepcopy(main_loop(alibox, unc, round)))
     qbc_result.append(copy.deepcopy(main_loop(alibox, qbc, round)))
-    eer_result.append(copy.deepcopy(main_loop(alibox, eer, round)))
+    # eer_result.append(copy.deepcopy(main_loop(alibox, eer, round)))
     rnd_result.append(copy.deepcopy(main_loop(alibox, rnd, round)))
     # quire_result.append(copy.deepcopy(main_loop(alibox, quire, round)))
-    density_result.append(copy.deepcopy(main_loop(alibox, density, round)))
+    # density_result.append(copy.deepcopy(main_loop(alibox, density, round)))
     # lal_result.append(copy.deepcopy(main_loop(alibox, lal, round)))
     # # #
     # if _I_have_installed_the_cvxpy:
@@ -151,10 +154,10 @@ for round in range(2):
 analyser = alibox.get_experiment_analyser(x_axis='num_of_queries')
 analyser.add_method(method_name='QBC', method_results=qbc_result)
 analyser.add_method(method_name='Unc', method_results=unc_result)
-analyser.add_method(method_name='EER', method_results=eer_result)
+# analyser.add_method(method_name='EER', method_results=eer_result)
 analyser.add_method(method_name='Random', method_results=rnd_result)
 # analyser.add_method(method_name='QUIRE', method_results=quire_result)
-analyser.add_method(method_name='Density', method_results=density_result)
+# analyser.add_method(method_name='Density', method_results=density_result)
 # analyser.add_method(method_name='LAL', method_results=lal_result)
 # if _I_have_installed_the_cvxpy:
 #     analyser.add_method(method_name='BMDR', method_results=bmdr_result)
@@ -163,7 +166,7 @@ print(analyser)
 analyser.plot_learning_curves(title='Example of alipy', std_area=False)
 
 
-li=np.arange(0,61)
+li=np.arange(0,1090)
 # print(li)
 
 # find metrics
